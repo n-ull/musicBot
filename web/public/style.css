@@ -1,0 +1,121 @@
+:root {
+   --bg-color: #140f2d;
+   --title-color: #97a7b3;
+   --color1: #33658a;
+   --color1-hover: #3f88c5;
+   --color2: #f49d37;
+}
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+body {
+   color: white;
+   text-align: center;
+   font-size: clamp(10px, 4vw, 22px);
+   background-color: var(--bg-color);
+   /*    overflow: hidden; */
+}
+main {
+   padding: 2em 0;
+}
+.app {
+   height: 100vh;
+   cursor: default;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+   /*    border: 1px solid red; */
+   display: grid;
+   grid-template-columns: 1fr;
+   grid-template-rows: 3em 1fr 3em;
+}
+.app-menu {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 0 1em;
+   height: 100%;
+   background-color: var(--color1);
+}
+.app-main {
+   padding: 1em 0;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+}
+
+.disc {
+   height: 10em;
+   width: 10em;
+   border-radius: 1em;
+   background: var(--color2);
+}
+.controls {
+   padding: 1em;
+}
+.playlist {
+   margin: 0 1em;
+   border-radius: 1em;
+   background: var(--color2);
+}
+.list-item-wraper {
+   padding: 1em;
+   margin: 0.1em;
+   border-radius: 1em;
+   width: 20em;
+}
+.list-item-wraper:hover {
+   background: var(--color1);
+}
+.list-item {
+   display: flex;
+   justify-content: space-between;
+}
+.app-footer {
+   display: flex;
+   justify-content: right;
+   align-items: center;
+   padding: 0 1em;
+   height: 100%;
+   background-color: var(--color1);
+}
+.search {
+   display: flex;
+   flex-wrap: nowrap;
+   align-items: center;
+   text-align: left;
+}
+.textinput {
+   box-sizing: border-box;
+   padding: 0 1em;
+   height: 3em;
+   border: none;
+   border-radius: 1em;
+}
+.textinput:focus {
+   outline: none;
+   border: none;
+}
+.btn {
+   margin: 3px;
+   width: 3rem;
+   height: 3rem;
+   color: white;
+   cursor: pointer;
+   border: none;
+   border-radius: 100%;
+   background-color: var(--color1);
+}
+.btn:hover {
+   background-color: var(--color1-hover);
+}
+
+@media (min-width: 1025px) {
+   /* big landscape tablets, laptops, and desktops */
+   main {
+      padding: 5%;
+   }
+}
