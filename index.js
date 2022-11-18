@@ -1,9 +1,10 @@
 require('dotenv').config()
-require("./web").start_server()
+const web = require("./web")
 const Discord = require('discord.js')
 const { REST } = require('@discordjs/rest')
 const { Routes } = require('discord.js')
 const { Player } = require('discord-player')
+const { EmbedBuilder } = require('@discordjs/builders')
 const fs = require('fs')
 
 const TOKEN = process.env.TOKEN
@@ -54,6 +55,7 @@ if (LOAD_COMMANDS) {
 else {
     client.on('ready', () => {
         console.log(`Logged in as ${client.user.tag}`)
+        web.start_server(client)
     })
 
     client.on('interactionCreate', (interaction) => {
@@ -68,6 +70,26 @@ else {
         }
 
         commandHandler()
+    })
+
+    client.player.on('trackEnd', (queue, track) => {
+        var channel = queue.messageChannel
+        var msg = queue.guild.channels.cache.get(channel)
+        var newSong = queue.tracks[0]
+
+        if(!queue.tracks.length) {
+            console.log(queue.metadata)
+            msg.send({
+                embeds: [new EmbedBuilder().setDescription('The queue finalized!')]
+            })
+            return
+        }
+
+        msg.send({
+            embeds: [new EmbedBuilder().setDescription(`[${track.title}](${track.url}) ended.\n\n**Now playing:**\n[${newSong.title}](${newSong.url})`)
+            .setFooter({text: `Duration: ${newSong.duration}`})
+            .setThumbnail(newSong.thumbnail)]
+        })
     })
 
     client.login(TOKEN)

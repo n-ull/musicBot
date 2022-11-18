@@ -1,23 +1,43 @@
-const start_server = function () {
-    const path = require("path")
-    const express = require("express")
+const utils = require('../utils')
 
-    const app = express()
+module.exports.start_server = function (client) {
+	const path = require('path');
+	const express = require('express');
+	const player = client.player;
 
-    app.use('', express.static(path.join(__dirname, 'public')))
-    app.get('/', (req, res) => {
-        return res.sendFile('index.html', { root: '.' })
-    })
-    app.get('/auth/discord', (req, res) => {
-        return res.sendFile('player.html', { root: '.' })
-    })
+	const app = express();
 
-    const port = '3000'
-    app.listen(port, () => {
-        console.log(`web app desplegada en http://localhost:${port}`)
-    })
-}
+	app.use('', express.static(path.join(__dirname, 'public')));
 
-module.exports = {
-    start_server
+	app.get('/', (req, res) => {
+		return res.sendFile('web/index.html', { root: '.' });
+	});
+
+	app.get('/auth/discord', (req, res) => {
+		return res.sendFile('web/player.html', { root: '.' });
+	});
+
+	app.get('/pause', (req, res) => {
+		utils.pause(player)
+	})
+
+	app.get('/add/', (req, res) => {
+		utils.add(player, )
+	})
+
+	app.get('/player/queue', (req, res) => {
+		if (player.queues.legnth == 0 || !player.queues.has(process.env.GUILD_ID)) {
+			return false
+		}
+
+		var guild_player = player.queues.get(process.env.GUILD_ID)
+
+		return res.json({
+			tracks: guild_player.tracks,
+			currentTrack: guild_player.nowPlaying()
+		})
+	})
+
+	const port = '3000';
+	app.listen(port, () => console.log(`App listening at http://localhost:${port}`));
 }

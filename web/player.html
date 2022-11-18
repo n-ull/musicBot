@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Media player</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css'>
+  <link rel="stylesheet" href="../theme.css">
+
+</head>
+
+<body>
+  <!-- partial:index.partial.html -->
+  <div id="wrapper"></div>
+  <!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.production.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.production.min.js'></script>
+  <script src="../app.js"></script>
+  <script>
+    let test = ""
+    window.onload = () => {
+      const fragment = new URLSearchParams(window.location.hash.slice(1));
+      const [accessToken, tokenType] = [fragment.get('access_token'), fragment.get('token_type')];
+      if (!accessToken) window.location.href = "/"
+      fetch('https://discord.com/api/users/@me', {
+          headers: {
+              authorization: `${tokenType} ${accessToken}`,
+          },
+      })
+      .then(result => result.json())
+      .then(res => {
+          // https://cdn.discordapp.com/avatars/${res.id}/${res.avatar}
+      })
+      .catch(console.error);
+    };
+  </script>
+</body>
+
+</html>

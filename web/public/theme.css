@@ -15,7 +15,6 @@ body {
    text-align: center;
    font-size: clamp(10px, 4vw, 22px);
    background-color: var(--bg-color);
-   /*    overflow: hidden; */
 }
 main {
    padding: 2em 0;
@@ -27,10 +26,9 @@ main {
    -moz-user-select: none;
    -ms-user-select: none;
    user-select: none;
-   /*    border: 1px solid red; */
    display: grid;
    grid-template-columns: 1fr;
-   grid-template-rows: 3em 1fr 3em;
+   grid-template-rows: 4em 1fr 4em;
 }
 .app-menu {
    display: flex;
@@ -48,6 +46,7 @@ main {
 }
 
 .disc {
+   object-fit: cover;
    height: 10em;
    width: 10em;
    border-radius: 1em;
@@ -62,6 +61,7 @@ main {
    background: var(--color2);
 }
 .list-item-wraper {
+   cursor: pointer;
    padding: 1em;
    margin: 0.1em;
    border-radius: 1em;
